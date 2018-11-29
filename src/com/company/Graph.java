@@ -39,6 +39,7 @@ public class Graph {
         return vertex;
     }
     public void dijkstra_GetMinCost(int source, int numVerticies){
+        String[] paths = new String[numVerticies];
         boolean[] spt = new boolean[numVerticies];
         int [] cost = new int[numVerticies];
         int MAX_INT = Integer.MAX_VALUE;
@@ -46,6 +47,7 @@ public class Graph {
         //Set the init cost to maximum integer value
         for (int i = 0; i <numVerticies ; i++) {
             cost[i] = MAX_INT;
+            paths[i] = "0";
         }
 
         //start from the vertex 0
@@ -73,16 +75,19 @@ public class Graph {
                         //the current cost value, if yes then update the cost
 
                         int newKey =  matrix[vertex_U][vertex_V] + cost[vertex_U];
-                        if(newKey<cost[vertex_V])
+                        if(newKey<cost[vertex_V]) {
                             cost[vertex_V] = newKey;
+                            paths[vertex_V] = paths[vertex_U] + " " + vertex_V;
+                        }
                     }
                 }
             }
         }
         //print shortest path tree
         print(source, cost);
-        System.out.println("hello");
+        for (int i = 0; i < numVerticies; ++i) {
+            System.out.println(paths[i]);
+        }
     }
-
 
 }
